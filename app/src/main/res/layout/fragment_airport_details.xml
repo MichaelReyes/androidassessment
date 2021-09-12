@@ -1,12 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.technologies.androidassessment.feature.dashboard.airport_details.AirportDetailsHandler" />
+
+        <variable
+            name="viewModel"
+            type="com.technologies.androidassessment.feature.dashboard.airport_details.AirportDetailsViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/margin_medium"
         tools:context=".feature.dashboard.airport_details.AirportDetailsFragment">
 
+        <TextView
+            android:id="@+id/airportDetails_tv_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`Code: ` + viewModel.airport.airportCode}"
+            android:textSize="@dimen/font_size_regular"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Code" />
+
+        <TextView
+            android:id="@+id/airportDetails_tv_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:text="@{`Country: ` + viewModel.airport.country.countryName}"
+            android:textSize="@dimen/font_size_regular"
+            app:layout_constraintTop_toBottomOf="@+id/airportDetails_tv_code"
+            tools:text="Country" />
+
+        <TextView
+            android:id="@+id/airportDetails_tv_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:text="@{`City: ` + viewModel.airport.city.cityName + ` ` + viewModel.airport.city.timeZoneName}"
+            android:textSize="@dimen/font_size_regular"
+            app:layout_constraintTop_toBottomOf="@+id/airportDetails_tv_country"
+            tools:text="City" />
+
+        <TextView
+            android:id="@+id/airportDetails_tv_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:onClick="@{() -> handler.onViewLocation(viewModel.airport.location)}"
+            android:text="@{`Location: ` + viewModel.airport.location.latitude + `,` + viewModel.airport.location.longitude}"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/font_size_regular"
+            app:layout_constraintTop_toBottomOf="@+id/airportDetails_tv_city"
+            tools:text="Location" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.showBackButton}"
+            android:onClick="@{() -> handler.onBack()}"
+            android:text="@string/action_back"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
