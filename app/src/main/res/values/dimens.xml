@@ -24,4 +24,6 @@
     <dimen name="icon_extra_large">96dp</dimen>
     <dimen name="icon_xx_large">144dp</dimen>
 
+    <dimen name="multipane_left_width">500dp</dimen>
+
 </resources>

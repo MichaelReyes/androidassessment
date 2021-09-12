@@ -4,15 +4,15 @@ import androidx.room.ColumnInfo
 
 data class Location(
     @ColumnInfo(name = "above_sea_level")
-    val aboveSeaLevel: Int,
-    val latitude: Double,
+    val aboveSeaLevel: Int?,
+    val latitude: Double?,
     @ColumnInfo(name = "latitude_direction")
-    val latitudeDirection: String,
+    val latitudeDirection: String?,
     @ColumnInfo(name = "latitude_radius")
-    val latitudeRadius: Double,
-    val longitude: Double,
+    val latitudeRadius: Double?,
+    val longitude: Double?,
     @ColumnInfo(name = "longitude_direction")
-    val longitudeDirection: String,
+    val longitudeDirection: String?,
     @ColumnInfo(name = "longitude_radius")
-    val longitudeRadius: Double
+    val longitudeRadius: Double?
 )

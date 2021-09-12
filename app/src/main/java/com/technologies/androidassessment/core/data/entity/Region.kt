@@ -6,5 +6,5 @@ data class Region(
     @ColumnInfo(name = "region_code")
     val regionCode: String,
     @ColumnInfo(name = "region_name")
-    val regionName: String
+    val regionName: String?
 )

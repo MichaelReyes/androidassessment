@@ -3,17 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.technologies.androidassessment.feature.dashboard.airport_list.AirportsViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/users_srl_data"
+            android:id="@+id/airports_srl_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/users_rv_data"
+                android:id="@+id/airports_rv_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -22,11 +28,12 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <TextView
-            android:id="@+id/users_tv_empty"
+            android:id="@+id/airports_tv_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/error_list_empty"
             android:textAlignment="center"
+            android:visibility="@{viewModel.airports.size() == 0}"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/font_size_large"
             app:layout_constraintBottom_toBottomOf="parent"

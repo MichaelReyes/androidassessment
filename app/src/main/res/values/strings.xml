@@ -6,4 +6,5 @@
     <string name="error_list_empty">List is empty</string>
 
     <string name="label_offline">You are offline</string>
+    <string name="label_flights">Flights</string>
 </resources>

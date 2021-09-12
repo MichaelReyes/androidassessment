@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.technologies.androidassessment.feature.dashboard.airport_list.AirportsViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -8,10 +15,12 @@
         tools:context=".feature.dashboard.airport_list.AirportsFragment">
 
         <include
-            layout="@layout/list_airports" />
+            layout="@layout/list_airports"
+            app:viewModel="@{viewModel}"/>
 
         <include
-            layout="@layout/banner_no_network" />
+            layout="@layout/banner_no_network"
+            app:hasConnection="@{viewModel.hasInternetConnection}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
