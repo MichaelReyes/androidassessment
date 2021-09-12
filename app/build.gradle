@@ -25,9 +25,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner "com.android.test.runner.MultiDexTestRunner"
 
-        buildConfigField 'String', 'ACCESS_TOKEN', String.format('"37114ec25cc67a77c043523aad317d3427cd6b9ef179fa617da0e532e61a6b97"')
-        buildConfigField 'String', 'SERVER_BASE_URL', String.format('"https://gorest.co.in/public-api/"')
-        buildConfigField 'String', 'SERVER_BASE_URL_PRODUCTS', String.format('"https://fakestoreapi.com/"')
+        buildConfigField 'String', 'SERVER_BASE_URL', String.format('"https://api.qantas.com/"')
     }
 
     buildTypes {
