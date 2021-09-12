@@ -8,8 +8,12 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
 import com.technologies.androidassessment.core.extension.observe
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 /**
  * To act as a super class for all other fragments.
@@ -79,6 +83,12 @@ abstract class BaseFragment<V : ViewDataBinding> : Fragment() {
             observe(error) {
                 it?.apply { showMessage(this, false) }
             }
+
+            (activity?.application as? App)?.internetConnectionStream
+                ?.onEach {
+                    setHasInternetConnection(it)
+                }?.launchIn(lifecycleScope)
         }
+
     }
 }

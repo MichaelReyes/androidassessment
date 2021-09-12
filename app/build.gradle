@@ -53,6 +53,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
 }
 
 dependencies {
@@ -115,6 +119,10 @@ dependencies {
 
     //MultiDex
     implementation "androidx.multidex:multidex:$multidex_version"
+
+    //Network Observer
+    implementation "com.github.pwittchen:reactivenetwork-rx2:$rx_network_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
