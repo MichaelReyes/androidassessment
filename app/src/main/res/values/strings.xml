@@ -7,4 +7,7 @@
 
     <string name="label_offline">You are offline</string>
     <string name="label_flights">Flights</string>
+
+    <string name="message_select_airport">Select an airport to view its details</string>
+    <string name="action_back">Back</string>
 </resources>

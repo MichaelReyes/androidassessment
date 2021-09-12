@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/airport_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/airport_graph"
+    app:startDestination="@id/noSelectedFragment">
 
+    <fragment
+        android:id="@+id/airportDetailsFragment"
+        android:name="com.technologies.androidassessment.feature.dashboard.airport_details.AirportDetailsFragment"
+        android:label="AirportDetailsFragment" />
+    <fragment
+        android:id="@+id/noSelectedFragment"
+        android:name="com.technologies.androidassessment.feature.dashboard.airport_details.NoSelectedFragment"
+        android:label="NoSelectedFragment" />
 </navigation>
