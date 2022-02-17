@@ -3,6 +3,7 @@ package com.technologies.androidassessment.feature.dashboard.airport_details
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.technologies.androidassessment.R
 import com.technologies.androidassessment.core.base.BaseActivity
@@ -17,7 +18,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class AirportDetailsFragment : BaseFragment<FragmentAirportDetailsBindingImpl>(), AirportDetailsHandler {
+class AirportDetailsFragment : BaseFragment<FragmentAirportDetailsBindingImpl>(),
+    AirportDetailsHandler {
 
     private val viewModel: AirportDetailsViewModel by viewModels()
 
@@ -43,6 +45,12 @@ class AirportDetailsFragment : BaseFragment<FragmentAirportDetailsBindingImpl>()
         initBinding()
         initObserver()
         checkExtras()
+
+        if (activity is AirportDetailsActivity) {
+            activity?.onBackPressedDispatcher?.addCallback(this) {
+                activity?.finish()
+            }
+        }
     }
 
     private fun initBinding() {
@@ -54,11 +62,11 @@ class AirportDetailsFragment : BaseFragment<FragmentAirportDetailsBindingImpl>()
     private fun initObserver() {
         viewModel.apply {
             setShowBackButton(activity is AirportDetailsActivity)
-            observe(airport){
+            observe(airport) {
                 it?.let {
-                    if(activity is AirportDetailsActivity) {
+                    if (activity is AirportDetailsActivity) {
                         (activity as BaseActivity<*>).setToolbar(
-                            show = true, showBackButton = false, title = it.airportName
+                            show = true, showBackButton = true, title = it.airportName
                         )
                     }
                 }
@@ -70,12 +78,7 @@ class AirportDetailsFragment : BaseFragment<FragmentAirportDetailsBindingImpl>()
         arguments?.let {
             if (it.containsKey(AirportDetailsActivity.ARGS_AIRPORT)) {
                 viewModel.setAirport(
-                    gson.fromJson(
-                        it.getString(
-                            AirportDetailsActivity.ARGS_AIRPORT,
-                            ""
-                        )
-                    )
+                    gson.fromJson(it.getString(AirportDetailsActivity.ARGS_AIRPORT, ""))
                 )
             }
         }

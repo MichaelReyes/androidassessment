@@ -15,6 +15,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -38,8 +39,12 @@ class AirportsViewModel @Inject constructor(
     }
 
     fun getAirportsRx() {
+        //Purpose of delay is just to show the loader for a few seconds
         flightRepositoryRx.getAirports()
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { setLoading(true) }
+            .delay(3000, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+            .doAfterTerminate { setLoading(false) }
             .subscribeBy(
                 onSuccess = {
                     _airports.value = it

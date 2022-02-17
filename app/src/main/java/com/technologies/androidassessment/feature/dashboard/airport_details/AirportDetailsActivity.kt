@@ -15,7 +15,6 @@ class AirportDetailsActivity : BaseActivity<ActivityAirportDetailsBinding>() {
 
     override fun onCreated(instance: Bundle?) {
         setSupportActionBar(binding.toolbar)
-
         findNavController(R.id.nav_host_fragment).navigate(
             R.id.airportDetailsFragment,
             intent.extras
