@@ -1,4 +1,3 @@
-
 package com.technologies.androidassessment.core.base
 
 import androidx.lifecycle.LiveData
@@ -7,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.technologies.androidassessment.core.data.network.Resource
 import com.technologies.androidassessment.core.data.network.Status
+import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 
 /**
@@ -17,6 +17,8 @@ import retrofit2.HttpException
 abstract class BaseViewModel : ViewModel() {
 
     protected val gson = Gson()
+
+    protected val disposable = CompositeDisposable()
 
     private val _hasInternetConnection = MutableLiveData<Boolean>()
     val hasInternetConnection: LiveData<Boolean> = _hasInternetConnection
@@ -42,11 +44,16 @@ abstract class BaseViewModel : ViewModel() {
         _message.postValue(value)
     }
 
-    protected fun handleException(exception: Throwable, errorMessage: (String?) -> Unit) {
-        if (exception is HttpException) {
-            errorMessage.invoke(exception.response()?.errorBody()?.string())
+    protected fun handleException(exception: Throwable): String? {
+        return if (exception is HttpException) {
+            exception.response()?.errorBody()?.string()
         } else
-            errorMessage.invoke(exception.localizedMessage)
+            exception.localizedMessage
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 
     /**
@@ -55,9 +62,9 @@ abstract class BaseViewModel : ViewModel() {
      *  To be able to observe onSuccess only
      */
     suspend fun <T> Resource<T>.handleResponse(
-            onError: (suspend (Resource<T>) -> Unit)? = null,
-            onLoading: (suspend (Resource<T>) -> Unit)? = null,
-            onSuccess: suspend (Resource<T>) -> Unit,
+        onError: (suspend (Resource<T>) -> Unit)? = null,
+        onLoading: (suspend (Resource<T>) -> Unit)? = null,
+        onSuccess: suspend (Resource<T>) -> Unit,
     ) {
         when (status) {
             Status.SUCCESS -> {
