@@ -20,7 +20,10 @@ interface FlightRepositoryRx {
     ) : FlightRepositoryRx {
         override fun getAirports(): Single<List<Airport>> {
             return if (networkHandler.isConnected) {
-                service.getAirportsRx()
+                service.getAirportsRx().flatMap {
+                    airportDao.insertRx(it)
+                        .andThen(Single.just(it))
+                }
             } else {
                 airportDao.getAirportsRx()
             }.subscribeOn(Schedulers.io())

@@ -84,10 +84,15 @@ abstract class BaseFragment<V : ViewDataBinding> : Fragment() {
                 it?.apply { showMessage(this, false) }
             }
 
+            /*
             (activity?.application as? App)?.internetConnectionStream
                 ?.onEach {
                     setHasInternetConnection(it)
                 }?.launchIn(lifecycleScope)
+            */
+            (activity?.application as? App)?.internetConnectionStream?.subscribe {
+                setHasInternetConnection(it)
+            }
         }
 
     }
