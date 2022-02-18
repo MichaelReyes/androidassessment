@@ -3,6 +3,7 @@ package com.technologies.androidassessment.core.base
 import android.app.Application
 import android.net.NetworkInfo
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+import com.jakewharton.rxrelay3.BehaviorRelay
 import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -17,7 +18,8 @@ class App : Application() {
     private val disposables = CompositeDisposable()
 
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-    val internetConnectionStream = MutableSharedFlow<Boolean>()
+    //val internetConnectionStream = MutableSharedFlow<Boolean>()
+    val internetConnectionStream = BehaviorRelay.create<Boolean>()
 
     override fun onCreate() {
         super.onCreate()
@@ -34,7 +36,8 @@ class App : Application() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 applicationScope.launch {
-                    internetConnectionStream.emit(it.available() && it.state() == NetworkInfo.State.CONNECTED)
+                    //internetConnectionStream.emit(it.available() && it.state() == NetworkInfo.State.CONNECTED)
+                    internetConnectionStream.accept(it.available() && it.state() == NetworkInfo.State.CONNECTED)
                 }
             }.addTo(disposables)
     }
