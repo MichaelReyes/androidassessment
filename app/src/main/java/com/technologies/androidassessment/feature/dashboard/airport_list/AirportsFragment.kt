@@ -48,8 +48,11 @@ class AirportsFragment : BaseFragment<FragmentAirportsBinding>() {
     override fun onResume() {
         super.onResume()
 
-        (activity as BaseActivity<*>).setToolbar(show = true, showBackButton = false, title = getString(
-                    R.string.label_flights))
+        (activity as BaseActivity<*>).setToolbar(
+            show = true, showBackButton = false, title = getString(
+                R.string.label_flights
+            )
+        )
     }
 
     private fun initViews() {
@@ -57,7 +60,7 @@ class AirportsFragment : BaseFragment<FragmentAirportsBinding>() {
 
         airports_srl_data?.setOnRefreshListener {
             airports_srl_data.isRefreshing = false
-            viewModel.getAirports()
+            viewModel.getAirportsRx()
         }
 
         adapter.clickListener = {
@@ -85,8 +88,8 @@ class AirportsFragment : BaseFragment<FragmentAirportsBinding>() {
 
     private fun initObservers() {
         viewModel.apply {
-            getAirports()
-            observe(airports){
+            getAirportsRx()
+            observe(airports) {
                 it?.let { adapter.collection = it }
             }
         }

@@ -31,7 +31,7 @@ interface FlightRepository {
                     } else {
                         emit(
                             Resource.success(
-                                data = airportDao.getProducts()
+                                data = airportDao.getAirports()
                             )
                         )
                     }

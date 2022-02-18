@@ -39,6 +39,15 @@ buildscript {
         room_version = '2.4.0-alpha04'
         rx_network_version = '3.0.8'
         rx_kotlin_version = "2.4.0"
+        rx_android_version = "2.1.1"
+        rx_java_version = "2.2.19"
+        retrofit_rx_adapter = "2.9.0"
+        rx_relay_version = "3.0.0"
+
+        mockk_version = '1.10.2'
+        junit_version = '4.13.1'
+        junit_ext_version = '1.1.2'
+        arch_core_testing = '1.1.1'
     }
 
     repositories {
